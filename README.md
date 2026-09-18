@@ -4,7 +4,7 @@ Automatically backs up my Android phone's Camera folder to a local mini PC every
 
 ## What it does
 
-Every night at **1:00 AM**, a cron job wakes up, takes a wake-lock so Android doesn't kill it mid-transfer, and runs `rsync` over SSH to mirror `DCIM/Camera` on the phone to a directory on a mini PC (`192.168.2.200`, a private LAN address). Only new/changed files are transferred after the first run.
+Every night at **10:00 PM**, a cron job wakes up, takes a wake-lock so Android doesn't kill it mid-transfer, and runs `rsync` over SSH to mirror `DCIM/Camera` on the phone to a directory on a mini PC (`192.168.2.200`, a private LAN address). Only new/changed files are transferred after the first run.
 
 ## Components
 
@@ -48,7 +48,7 @@ Every night at **1:00 AM**, a cron job wakes up, takes a wake-lock so Android do
    ```
    Add:
    ```
-   0 1 * * * /data/data/com.termux/files/home/bin/sync_camera.sh
+   0 22 * * * /data/data/com.termux/files/home/bin/sync_camera.sh
    ```
 8. **Install [Termux:Boot](https://github.com/termux/termux-boot)** (same source as Termux — F-Droid), open it once to register with Android, then place `termux-boot/start-services.sh` (this repo) at `~/.termux/boot/start-services.sh`.
 9. **Disable battery optimization** for both Termux and Termux:Boot: Android Settings → Apps → [app] → Battery → Unrestricted. On some OEMs (Xiaomi/Oppo/Vivo/Huawei) also enable "Autostart" for both apps. Without this, Android will eventually kill the background service and the nightly sync silently stops.
