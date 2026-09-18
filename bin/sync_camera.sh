@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
-# Nightly sync of phone Camera folder to mini PC.
+# Nightly sync of phone Camera folder to private storage server or NAS.(for me it's mini pc) 
 # Runs from cron; keep this script idempotent and safe to re-run.
 
 set -euo pipefail
