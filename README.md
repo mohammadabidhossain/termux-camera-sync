@@ -4,7 +4,7 @@ Automatically backs up my Android phone's Camera folder to a local mini PC every
 
 ## What it does
 
-Every night at **10:00 PM**, a cron job wakes up, takes a wake-lock so Android doesn't kill it mid-transfer, and runs `rsync` over SSH to mirror `DCIM/Camera` on the phone to a directory on a mini PC (`192.168.2.200`, a private LAN address). Only new/changed files are transferred after the first run.
+Every night at **10:00 PM**, a cron job wakes up, takes a wake-lock so Android doesn't kill it mid-transfer, and runs `rsync` over SSH to mirror `DCIM/Camera` on the phone into `/mnt/mydata/pictures/Pixel 6 pics and videos/` on a mini PC (`192.168.2.200`, a private LAN address) — the existing photo library folder for this phone. Only new/changed files are transferred after the first run.
 
 ## Components
 

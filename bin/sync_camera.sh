@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SRC="$HOME/storage/dcim/Camera/"
-DEST="minipc:/mnt/mydata/Media/Phone/Camera/"
+DEST="minipc:/mnt/mydata/pictures/Pixel 6 pics and videos/"
 LOG="$HOME/sync_camera.log"
 
 exec >>"$LOG" 2>&1
