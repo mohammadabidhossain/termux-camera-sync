@@ -1,14 +1,14 @@
 # termux-camera-sync
 
-Automatically backs up my Android phone's Camera folder to a local mini PC every night, using Termux running directly on the phone. No cloud, no third-party service — everything stays on my home LAN.
+Automatically backs up my Android phone's Camera folder to a local server/NAS every night, using Termux running directly on the phone. No cloud, no third-party service — everything stays on my home LAN.
 
 ## What it does
 
-Every night at **10:00 PM**, a cron job wakes up, takes a wake-lock so Android doesn't kill it mid-transfer, and runs `rsync` over SSH to mirror `DCIM/Camera` on the phone into `/mnt/mydata/pictures/Pixel 6 pics and videos/` on a mini PC (`192.168.2.200`, a private LAN address) — the existing photo library folder for this phone. Only new/changed files are transferred after the first run.
+Every night at **10:00 PM**, a cron job wakes up, takes a wake-lock so Android doesn't kill it mid-transfer, and runs `rsync` over SSH to mirror `DCIM/Camera` on the phone into `/mnt/mydata/pictures/Pixel 6 pics and videos/` on a server/NAS (`192.168.2.200`, a private LAN address) — the existing photo library folder for this phone. Only new/changed files are transferred after the first run.
 
 ## Components
 
-- `bin/sync_camera.sh` — the sync script cron runs. Wake-locks, rsyncs `~/storage/dcim/Camera/` to the mini PC over SSH, logs to `~/sync_camera.log`.
+- `bin/sync_camera.sh` — the sync script cron runs. Wake-locks, rsyncs `~/storage/dcim/Camera/` to the server/NAS over SSH, logs to `~/sync_camera.log`.
 - `termux-boot/start-services.sh` — runs on every device boot (via the [Termux:Boot](https://github.com/termux/termux-boot) app), starting the `termux-services` daemon so `crond` is alive even if Termux was never manually opened after a reboot.
 
 ## Setup (from scratch)
@@ -23,7 +23,7 @@ Every night at **10:00 PM**, a cron job wakes up, takes a wake-lock so Android d
    ```
    pkg install openssh rsync cronie termux-services
    ```
-4. **Set up passwordless SSH to the mini PC:**
+4. **Set up passwordless SSH to the server/NAS:**
    ```
    ssh-keygen -t ed25519
    ssh-copy-id user@192.168.2.200
@@ -55,6 +55,6 @@ Every night at **10:00 PM**, a cron job wakes up, takes a wake-lock so Android d
 
 ## Notes
 
-- This is a one-way mirror (phone → mini PC). Nothing is deleted from the phone.
+- This is a one-way mirror (phone → server/NAS). Nothing is deleted from the phone.
 - Logs land in `~/sync_camera.log` on the phone.
-- The mini PC only needs a standard OpenSSH server running; no special software required on that end.
+- The server/NAS only needs a standard OpenSSH server running; no special software required on that end.
